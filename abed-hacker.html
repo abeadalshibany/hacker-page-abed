@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacker Mode</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      padding: 20px;
+      overflow: hidden;
+    }
+    #terminal {
+      white-space: pre-wrap;
+      line-height: 1.5;
+      text-shadow: 0 0 5px #00ff00;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background: #00ff00;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <script>
+    const lines = [
+      "[ SYSTEM ACCESS GRANTED ]",
+      "Welcome back, Abid Al-Syaibani",
+      "Initializing protocols...",
+      "Bypassing firewalls...",
+      "Connected to secure shell...",
+      ">>> Awaiting commands..."
+    ];
+
+    const terminal = document.getElementById("terminal");
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if (lineIndex < lines.length) {
+        const line = lines[lineIndex];
+        if (charIndex < line.length) {
+          terminal.innerHTML += line[charIndex++];
+          setTimeout(typeLine, 50);
+        } else {
+          terminal.innerHTML += "\n";
+          charIndex = 0;
+          lineIndex++;
+          setTimeout(typeLine, 500);
+        }
+      } else {
+        terminal.innerHTML += "\n>>> ";
+        terminal.innerHTML += '<span class="cursor"></span>';
+      }
+    }
+
+    typeLine();
+  </script>
+</body>
+</html>
